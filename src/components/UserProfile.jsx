@@ -64,13 +64,13 @@ const UserProfile = () => {
 							alt="banner-pic"
 						/>
 						<img
-							src={user.image}
+							src={user?.image}
 							className="rounded-full w-20 h-20 shadow-xl object-cover"
 							alt="user-profile"
 						/>
-						<h1 className="font-bold text-3xl text-center mt-3">{user.userName}</h1>
+						<h1 className="font-bold text-3xl text-center mt-3">{user?.userName}</h1>
 						<div className="absolute top-0 z-1 right-0 p-2">
-							{userId === user._id && (
+							{userId === user?._id && user?._id && (
 								<GoogleLogout clientId={process.env.REACT_APP_GOOGLE_API_TOKEN} render={renderProps => (
 									<button
 										type="button"
