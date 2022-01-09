@@ -6,4 +6,4 @@ You can find the original authors project here: https://github.com/adrianhajdin/
 The project uses react & tailwinds for its frontend ui & sanity crm to host the backend.
 # Deployment
 
-see project live: https://tutorial-shareme.netlify.app/
+see project live: https://sharememjm.netlify.app/
