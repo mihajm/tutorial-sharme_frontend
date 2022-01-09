@@ -8,7 +8,6 @@ import {userCreatedPinsQuery, userQuery, userSavedPinsQuery} from '../utils/data
 import {client} from '../client';
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
-import {MdKingBed} from 'react-icons/md';
 
 const randomImage = 'https://source.unsplash.com/1600x900/?nature,photography,technology';
 
@@ -60,6 +59,7 @@ const UserProfile = () => {
 					<div className="flex flex-col justify-center items-center">
 						<img
 							src={randomImage}
+							referrerpolicy="no-referrer"
 							className="w-full h-370 2xl:h-510 shadow-lg object-cover mb-10"
 							alt="banner-pic"
 						/>

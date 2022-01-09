@@ -1,7 +1,7 @@
 import {React, useState, useRef, useEffect} from 'react';
 import {HiMenu} from 'react-icons/hi';
 import {AiFillCloseCircle} from 'react-icons/ai';
-import {Link, Route, Routes} from 'react-router-dom';
+import {Link, Route, Routes, useNavigate} from 'react-router-dom';
 
 import {Sidebar, UserProfile} from '../components';
 import {client} from '../client';
@@ -14,6 +14,11 @@ const Home = () => {
 	const [toggleSidebar, setToggleSidebar] = useState(false);
 	const [user, setUser] = useState(null);
 	const userInfo = fetchUser();
+	const navigate = useNavigate();
+
+	if (!user) {
+		navigate('/login');
+	}
 
 	useEffect(() => {
 		const query = userQuery(userInfo?.googleId);

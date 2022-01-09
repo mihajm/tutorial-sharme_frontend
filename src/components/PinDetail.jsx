@@ -104,6 +104,7 @@ const PinDetail = ({user}) => {
 						<img
 							className="w-8 h-8 rounded-full object-cover"
 							src={pinDetail.postedBy?.image}
+							referrerpolicy="no-referrer"
 							alt="user-profile"
 						/>
 						<p className="font-semibold capitalize">{pinDetail.postedBy?.userName}</p>
@@ -113,7 +114,8 @@ const PinDetail = ({user}) => {
 						{pinDetail?.comments?.map((comment, i) => (
 							<div key={i} className="flex gap-2 mt-5 items-center">
 								<img
-									src={comment.postedBy.image}
+									src={comment.postedBy?.image}
+									referrerpolicy="no-referrer"
 									alt="user-profile"
 									className="w-10 h-10 rounded-full cursor-pointer"
 								/>

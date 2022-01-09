@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import {AiOutlineCloudUpload} from 'react-icons/ai';
@@ -22,16 +22,17 @@ const CreatePin = ({user}) => {
 
 	const navigate = useNavigate();
 
-	const uploadImage = e => {
+	const uploadImage = file => new Promise((resolve, reject) => {
 		setLoading(false);
-		const file = e?.target?.files[0];
 
 		if (!file || !file.type || !file.name) {
+			reject();
 			return;
 		}
 
 		if (!(acceptedTypes.some(type => `image/${type}` === file.type))) {
 			setWrongImageType(true);
+			reject();
 			return;
 		}
 
@@ -41,10 +42,14 @@ const CreatePin = ({user}) => {
 			.upload('image', file, {contentType: file.type, filename: file.name})
 			.then(doc => setImageAsset(doc))
 			.then(() => setLoading(false))
-			.catch(err => console.error(err));
-	};
+			.catch(err => {
+				console.error(err);
+				reject();
+			})
+			.finally(() => resolve());
+	});
 
-	const savePin = e => {
+	const savePin = () => {
 		if (!title || !about || !destination || !imageAsset?._id || !category || !user?._id) {
 			setFields(true);
 			setTimeout(() => setFields(false), 2000);
@@ -73,6 +78,27 @@ const CreatePin = ({user}) => {
 
 		client.create(doc).then(() => navigate('/'));
 	};
+
+	useEffect(() => {
+		const sizes = ['1600x900', '900x1600', '900x900'];
+		const cats = categories.map(c => c.name);
+
+		for (let index = 0; index < 1; index++) {
+			const randomSize = sizes[Math.round(Math.random() * sizes.length)];
+			const randomCat = cats[Math.round(Math.random() * cats.length)];
+
+			const randomImg = `https://source.unsplash.com/${randomSize}/?${randomCat}`;
+
+			setTitle(randomCat + ' unsplash');
+			setAbout(`Downloaded image of ${randomCat} from unsplash`);
+			setDestination('https://venxly.com');
+			setCategory(randomCat);
+			fetch(randomImg).then(res => res.blob()).then(blob => {
+				const file = new File([blob], randomImg, {type: 'image/jpeg'});
+				uploadImage(file);
+			});
+		}
+	}, []);
 
 	return (
 		<div className="flex flex-col justify-center items-center lg:h-4/5">
@@ -103,7 +129,7 @@ const CreatePin = ({user}) => {
 									type="file"
 									className="w-0 h-0"
 									name="upload-image"
-									onChange={uploadImage}
+									onChange={e => uploadImage(e.target.files[0])}
 									accept="image/*"
 								/>
 							</label>
@@ -161,7 +187,7 @@ const CreatePin = ({user}) => {
 							</select>
 						</div>
 						<div className="flex justify-center items-end mt-5">
-							<button type="button" onClick={savePin} className="bg-red-500 text-white font-bold p-2 rounded-full w-28 outline-none">Save Pin</button>
+							<button type="button" onClick={() => savePin()} className="bg-red-500 text-white font-bold p-2 rounded-full w-28 outline-none">Save Pin</button>
 						</div>
 					</div>
 				</div>
