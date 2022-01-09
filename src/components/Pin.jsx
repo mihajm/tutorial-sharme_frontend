@@ -78,6 +78,7 @@ const Pin = ({pin: {postedBy, image, _id, destination, save}}) => {
 									href={destination}
 									target="_blank"
 									rel="noreferrer"
+									onClick={e => e.stopPropagation()}
 									className="bg-white flex items-center gap-2 text-black font-bold p-2 px-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md"
 								>
 									<BsFillArrowUpRightCircleFill />
@@ -96,14 +97,17 @@ const Pin = ({pin: {postedBy, image, _id, destination, save}}) => {
 					</div>
 				)}
 			</div>
-			<Link to={`user-profile/${user?._id}`} className="flex gap-2 mt-2 items-center">
-				<img
-					className="w-8 h-8 rounded-full object-cover"
-					src={postedBy?.image}
-					alt="user-profile"
-				/>
-				<p className="font-semibold capitalize">{postedBy?.userName}</p>
-			</Link>
+			{postedBy && (
+				<Link to={`user-profile/${postedBy?._id}`} className="flex gap-2 mt-2 items-center">
+					<img
+						className="w-8 h-8 rounded-full object-cover"
+						src={postedBy?.image}
+						alt="user-profile"
+					/>
+					<p className="font-semibold capitalize">{postedBy?.userName}</p>
+				</Link>
+			)}
+
 		</div>
 	);
 };
