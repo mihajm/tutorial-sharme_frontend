@@ -32,7 +32,7 @@ const PinDetail = ({user}) => {
 				key: uuidv4(),
 				postedBy: {
 					_type: 'postedBy',
-					_ref: user._id,
+					_ref: user?._id,
 				},
 			}])
 			.commit()
@@ -104,7 +104,7 @@ const PinDetail = ({user}) => {
 						<img
 							className="w-8 h-8 rounded-full object-cover"
 							src={pinDetail.postedBy?.image}
-							referrerpolicy="no-referrer"
+							referrerPolicy="no-referrer"
 							alt="user-profile"
 						/>
 						<p className="font-semibold capitalize">{pinDetail.postedBy?.userName}</p>
@@ -114,14 +114,14 @@ const PinDetail = ({user}) => {
 						{pinDetail?.comments?.map((comment, i) => (
 							<div key={i} className="flex gap-2 mt-5 items-center">
 								<img
-									src={comment.postedBy?.image}
-									referrerpolicy="no-referrer"
+									src={comment?.postedBy?.image}
+									referrerPolicy="no-referrer"
 									alt="user-profile"
 									className="w-10 h-10 rounded-full cursor-pointer"
 								/>
 								<div className="flex flex-col">
-									<p className="font-bold">{comment.postedBy.userName}</p>
-									<p>{comment.comment}</p>
+									<p className="font-bold">{comment?.postedBy?.userName}</p>
+									<p>{comment?.comment}</p>
 								</div>
 							</div>
 						))}

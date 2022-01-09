@@ -101,7 +101,7 @@ const Pin = ({pin: {postedBy, image, _id, destination, save}}) => {
 					{postedBy?.image && (<img
 						className="w-8 h-8 rounded-full object-cover"
 						src={postedBy?.image}
-						referrerpolicy="no-referrer"
+						referrerPolicy="no-referrer"
 						alt="user-profile"
 					/>)}
 					<p className="font-semibold capitalize">{postedBy?.userName}</p>

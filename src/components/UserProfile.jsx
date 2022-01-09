@@ -59,7 +59,7 @@ const UserProfile = () => {
 					<div className="flex flex-col justify-center items-center">
 						<img
 							src={randomImage}
-							referrerpolicy="no-referrer"
+							referrerPolicy="no-referrer"
 							className="w-full h-370 2xl:h-510 shadow-lg object-cover mb-10"
 							alt="banner-pic"
 						/>

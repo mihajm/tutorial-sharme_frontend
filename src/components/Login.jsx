@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import GoogleLogin from 'react-google-login';
 import {useNavigate} from 'react-router-dom';
 import {FcGoogle} from 'react-icons/fc';
 import video from '../assets/share.mp4';
 import logo from '../assets/logowhite.png';
 import {client} from '../client';
+import {fetchUser} from '../utils/fetchUser';
 
 const Login = () => {
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (fetchUser()) {
+			navigate('/', {replace: true});
+		}
+	}, []);
 
 	const responseGoogle = response => {
 		if (!response?.profileObj) {
