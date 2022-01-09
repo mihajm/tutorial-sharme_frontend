@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import {AiOutlineCloudUpload} from 'react-icons/ai';
@@ -68,37 +68,16 @@ const CreatePin = ({user}) => {
 					_ref: imageAsset?._id,
 				},
 			},
-			userId: user._id,
+			userId: user?._id,
 			postedBy: {
 				_type: 'postedBy',
-				_ref: user._id,
+				_ref: user?._id,
 			},
 			category,
 		};
 
 		client.create(doc).then(() => navigate('/'));
 	};
-
-	useEffect(() => {
-		const sizes = ['1600x900', '900x1600', '900x900'];
-		const cats = categories.map(c => c.name);
-
-		for (let index = 0; index < 1; index++) {
-			const randomSize = sizes[Math.round(Math.random() * sizes.length)];
-			const randomCat = cats[Math.round(Math.random() * cats.length)];
-
-			const randomImg = `https://source.unsplash.com/${randomSize}/?${randomCat}`;
-
-			setTitle(randomCat + ' unsplash');
-			setAbout(`Downloaded image of ${randomCat} from unsplash`);
-			setDestination('https://venxly.com');
-			setCategory(randomCat);
-			fetch(randomImg).then(res => res.blob()).then(blob => {
-				const file = new File([blob], randomImg, {type: 'image/jpeg'});
-				uploadImage(file);
-			});
-		}
-	}, []);
 
 	return (
 		<div className="flex flex-col justify-center items-center lg:h-4/5">
@@ -159,7 +138,7 @@ const CreatePin = ({user}) => {
 					{user && (
 						<div className="flex gap-2 my-2 items-center bg-white rounded-lg">
 							<img src={user?.image} className="w-10 h-10 rounded-full" alt="user-profile" />
-							<p className="font-bold">{user.userName}</p>
+							<p className="font-bold">{user?.userName}</p>
 						</div>
 					)}
 					<input
