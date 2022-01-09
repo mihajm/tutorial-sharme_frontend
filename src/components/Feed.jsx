@@ -16,11 +16,19 @@ const Feed = () => {
 		client.fetch(categoryId ? searchQuery(categoryId) : feedQuery).then(data => setPins(data)).then(() => setLoading(false));
 	}, [categoryId]);
 
-	return !loading ? (
+	if (loading) {
+		return <Spinner message="Adding new ideas to your feed!" />;
+	}
+
+	if (!pins.length) {
+		return <h2 className="font-semibold w-full text-center">No pins available! :-(</h2>;
+	}
+
+	return (
 		<div>
 			{pins && pins.length > 0 && <MasonryLayout pins={pins} />}
 		</div>
-	) : <Spinner message="Adding new ideas to your feed!" />;
+	);
 };
 
 export default Feed;

@@ -29,6 +29,7 @@ const Sidebar = ({user, closeToggle}) => {
 					<h3 className="mt-2 px-5 text-base 2xl:text-xl">Discover categories</h3>
 					{categories.slice(0, categories.length - 1).map(cat => (
 						<NavLink to={`/category/${cat.name}`} key={cat.name} className={({isActive}) => isActive ? isActiveStyle : isNotActiveStyle} onClick={handleCloseSidebar}>
+							<img src={cat.image} className="w-8 h-8 rounded-full shadow-sm" alt={`category ${cat.name}`} />
 							{cat.name}
 						</NavLink>
 					))}

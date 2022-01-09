@@ -18,7 +18,6 @@ const Pin = ({pin: {postedBy, image, _id, destination, save}}) => {
 	const alreadySaved = Boolean((save?.filter(item => Boolean(Boolean(item?.postedBy?._id) && Boolean(user?.googleId)) && item?.postedBy?._id === user.googleId))?.length);
 
 	const savePin = id => {
-		console.log(alreadySaved, save, user, user.google);
 		if (!alreadySaved && Boolean(user?.googleId)) {
 			setSavingPost(true);
 			client.patch(id).setIfMissing({save: []}).insert('after', 'save[-1]', [{
@@ -31,7 +30,7 @@ const Pin = ({pin: {postedBy, image, _id, destination, save}}) => {
 			}])
 				.commit()
 				.then(() => {
-					Window.location.reload();
+					window.location.reload();
 					setSavingPost(false);
 				});
 		}
