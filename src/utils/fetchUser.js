@@ -1,1 +1,1 @@
-export const fetchUser = () => localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+export const fetchUser = () => localStorage.getItem('user') && localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
